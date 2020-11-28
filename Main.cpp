@@ -1,7 +1,7 @@
 #include<iostream>
-#include<string>
-#include"Comprador.h"
-#include"Vendedor.h"
+#include <string>
+#include "Comprador.h"
+#include "Vendedor.h"
 using namespace std;
 void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
 {
@@ -202,11 +202,11 @@ int main()
                 cout << "\n";
             }
 
-            for (int cont=0; cont < nVend; cont++)
-            {
-                arrVendedores[cont].print(); cout << "\n";
-                cout << "\n";
-            }
+            // for (int cont=0; cont < nVend; cont++)
+            // {
+            //     arrVendedores[cont].print(); cout << "\n";
+            //     cout << "\n";
+            // }
             
             for (int cont=0; cont < nVend; cont++)
             {
@@ -214,11 +214,17 @@ int main()
             }
             break;
         case 'e':
+            for (int cont=0; cont < nComp; cont++)
+            {
+                cout << arrCompradores[cont].getName();
+            }
+            cout << endl;
             Login(arrCompradores, nComp, CompradorA);
             for (int cont=0; cont < nVend; cont++)
             {
                 cout << arrVendedores[cont].getName();
             }
+            cout << endl;
             SeleccionV(arrVendedores, nVend, VendedorA);
 
             for (int cont=0; cont < (nVend); cont++)
@@ -228,11 +234,12 @@ int main()
                 cout << "\n";
             }
             SeleccionP(ValoraPagar, ProductoaPagar, nVend, arrVendedores);
+            cout << endl;
             ValorTotal = CalculoPrecio(VendedorA, CompradorA, ValoraPagar);
             cout << "¿Quieres Proseguir con la compra?" << endl;
-            cout << "Tu Compra:" << ProductoaPagar << "          $" << ValoraPagar;
+            cout << "Tu Compra:" << ProductoaPagar << "          $" << ValoraPagar <<endl;
             cout << "Si/No"; cin >> Sel;
-            if (Sel == "Si")
+            if (Sel == "Si" || Sel == "si")
             {
                 cout << "El producto " << ProductoaPagar << "sera enviado a " << CompradorA.getName();
                 cout << "A la dirección:";
@@ -241,6 +248,7 @@ int main()
             else
             {
                 cout << "Compra Cancelada...";
+                cout << "\n";
             }
             break;
         }
