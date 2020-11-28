@@ -2,7 +2,6 @@
 #define Comprador_h
 #include "Direccion.h"
 #include "CtaBanc.h"   
-#include<fstream>
 
 class Comprador{
 

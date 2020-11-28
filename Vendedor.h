@@ -163,7 +163,7 @@ void Vendedor :: setPrecio3(double nPrecio3)
 void Vendedor :: print()
 {
     cout << nombre << " No. Tarjeta " << getDtaBanc().getNoTarjeta() << endl;
-    cout << "Saldo " <<  getDtaBanc().getSaldo()
+    cout << "Saldo " <<  getDtaBanc().getSaldo();
 }
 
 void Vendedor :: PrintProd()

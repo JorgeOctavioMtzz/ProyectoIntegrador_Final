@@ -1,5 +1,6 @@
 #ifndef CtaBanc_h
 #define CtaBanc_h
+#include<iostream>
 using namespace std;
 
 class CtaBanc{

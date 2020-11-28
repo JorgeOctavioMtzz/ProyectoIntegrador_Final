@@ -1,12 +1,12 @@
 #include<iostream>
 #include<string>
-#include"/Users/octavio/Desktop/CPP/ProyectoIntegrador/ProyectoIntegrador/Direccion.h"
-#include"/Users/octavio/Desktop/CPP/ProyectoIntegrador/ProyectoIntegrador/Vendedor.h"
+#include"Comprador.h"
+#include"Vendedor.h"
 using namespace std;
 void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
 {
     string pais, estado, ciudad, colonia, calle, noTarjeta, USername;
-    int CVV, mes ,saldo, año, numCasa, codPostal, numCompradores;
+    int CVV, mes ,saldo, año, numCasa, codPostal;
     cout << "¿Cuantos compradores quieres registrar? (Max. 20) "; cin >> numCompradores;
     for (int cont=0; cont < numCompradores ; cont++)
     {
@@ -37,12 +37,14 @@ void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
 void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
 {
     
-    string pais, estado, ciudad, colonia, calle, noTarjeta, Prod1, Prod2, Prod3;
+    string pais, estado, ciudad, colonia, calle, noTarjeta, Prod1, Prod2, Prod3,USername;
     double Prec1, Prec2, Prec3;
-    int saldo, numCasa, codPostal, numVendedores;
+    int saldo, numCasa, codPostal;
     cout << "¿Cuantos Vendedores quieres registrar? (Max. 20) "; cin >> numVendedores;
+
     for (int cont=0; cont < numVendedores ; cont++)
     {
+        cout << "Nombre del vendedor: "; cin >> USername;
         cout << "Direccion desde la que se enviará su producto: " << endl;
         cout << "Pais: "; cin >> pais;
         cout << "Estado: "; cin >> estado;
@@ -67,6 +69,7 @@ void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
         cout << "Ingresa el precio de tu producto 2: "; cin >> Prec2;
         cout << "Nombre de tu producto 3: "; cin >> Prod3;
         cout << "Ingresa el precio de tu producto 3: "; cin >> Prec3;
+        ArrVendedor[cont].setNombre(USername);
         ArrVendedor[cont].setProducto1(Prod1);
         ArrVendedor[cont].setPrecio1(Prec1);
         ArrVendedor[cont].setProducto2(Prod2);
@@ -76,38 +79,40 @@ void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
     }
 }   
 
-Comprador Login(Comprador arrComp[], int noComp)
+void Login(Comprador arrComp[], int noComp, Comprador &Compsel)
 {   
     string User;
+    Comprador CompradorDFT;
     cout << "¿Quien Esta Comprando? "; cin >> User;
     for (int cont=0; cont < noComp; cont++)
     {
         if (arrComp[cont].getName() == User)
         {
-            return arrComp[cont];
+            Compsel = arrComp[cont];
         }
         else
         {
             cout << "Error 404: Tu nombre no coincide con nuestros Datos, favor de Registrarse...";
-            break;
+            Compsel = CompradorDFT;
         }
     }
 }
 
-Vendedor SeleccionV(Vendedor arrVend[], int noVend)
+void SeleccionV(Vendedor arrVend[], int noVend, Vendedor VendeSel)
 {
     string VendedorS;
+    Vendedor VendedorDft;
     cout << "Selecciona el Vendor "; cin >> VendedorS;
     for (int cont=0; cont < noVend; cont++)
     {
         if (arrVend[cont].getName() == VendedorS)
         {
-            return arrVend[cont];
+            VendeSel =  arrVend[cont];
         }
         else
         {
             cout << "Error 404: El vendedor seleccionado no existe";
-            break;
+            VendeSel = VendedorDft;
         }
     }
 }
@@ -186,26 +191,35 @@ int main()
             }
             break;
         case 'c':
+            IDatosVendedor( arrVendedores, nVend);
+
+            break;
+        case 'd':
             for (int cont=0; cont < nVend; cont++)
             {
                 arrVendedores[cont].print(); cout << "\n";
                 arrVendedores[cont].getDireccion().print(); cout << "\n";
                 cout << "\n";
             }
-            break;
-        case 'd':
+
+            for (int cont=0; cont < nVend; cont++)
+            {
+                arrVendedores[cont].print(); cout << "\n";
+                cout << "\n";
+            }
+            
             for (int cont=0; cont < nVend; cont++)
             {
                 arrVendedores[cont].PrintProd(); cout << "\n";
             }
             break;
         case 'e':
-            CompradorA = Login(arrCompradores, nComp);
+            Login(arrCompradores, nComp, CompradorA);
             for (int cont=0; cont < nVend; cont++)
             {
                 cout << arrVendedores[cont].getName();
             }
-            VendedorA = SeleccionV(arrVendedores, nVend);
+            SeleccionV(arrVendedores, nVend, VendedorA);
 
             for (int cont=0; cont < (nVend); cont++)
             {
