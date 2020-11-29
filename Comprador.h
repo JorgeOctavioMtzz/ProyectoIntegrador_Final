@@ -75,7 +75,7 @@ void Comprador :: setNombre(string Username)
 void Comprador ::  print()
 {
     cout << nombre << " No. Tarjeta " << getDtaBanc().getNoTarjeta() << endl;
-    cout << "Saldo " <<  getDtaBanc().getSaldo() << "CVV " << getDtaBanc().getCVV() << endl;
+    cout << "Saldo " <<  getDtaBanc().getSaldo() << " CVV " << getDtaBanc().getCVV() << endl;
     cout << "Fecha Exp " <<  getDtaBanc().getMes() << "/" <<  getDtaBanc().getAño() << endl;
 }
 
