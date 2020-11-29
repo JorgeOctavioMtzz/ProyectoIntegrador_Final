@@ -1,7 +1,7 @@
 #include<iostream>
-#include<string>
-#include"Comprador.h"
-#include"Vendedor.h"
+#include <string>
+#include "Comprador.h"
+#include "Vendedor.h"
 using namespace std;
 void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
 {
@@ -204,11 +204,11 @@ int main()
                 cout << "\n";
             }
 
-            for (int cont=0; cont < nVend; cont++)
-            {
-                arrVendedores[cont].print(); cout << "\n";
-                cout << "\n";
-            }
+            // for (int cont=0; cont < nVend; cont++)
+            // {
+            //     arrVendedores[cont].print(); cout << "\n";
+            //     cout << "\n";
+            // }
             
             for (int cont=0; cont < nVend; cont++)
             {
@@ -216,48 +216,41 @@ int main()
             }
             break;
         case 'e':
-            bool Vali;
-            Login(arrCompradores, nComp, CompradorA, Vali);
-            if (Vali == true) 
+            for (int cont=0; cont < nComp; cont++)
             {
-                for (int cont=0; cont < nVend; cont++)
-                {
-                    cout << arrVendedores[cont].getName() << endl;
-                }
-                SeleccionV(arrVendedores, nVend, VendedorA);
+                cout << arrCompradores[cont].getName();
+            }
+            cout << endl;
+            Login(arrCompradores, nComp, CompradorA);
+            for (int cont=0; cont < nVend; cont++)
+            {
+                cout << arrVendedores[cont].getName();
+            }
+            cout << endl;
+            SeleccionV(arrVendedores, nVend, VendedorA);
 
-                for (int cont=0; cont < (nVend); cont++)
-                {
-                    cout << "Vendedor " << (cont+1);
-                    arrVendedores[cont].PrintProd();
-                    cout << "\n";
-                }
-                SeleccionP(ValoraPagar, ProductoaPagar, nVend, arrVendedores);
-                ValorTotal = CalculoPrecio(VendedorA, CompradorA, ValoraPagar);
-                cout << "¿Quieres Proseguir con la compra?" << endl;
-                cout << "Tu Compra:" << ProductoaPagar << "          $" << ValoraPagar;
-                cout << "Si/No"; cin >> Sel;
-
-                if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() >= ValoraPagar)
-                {
-                    double SaldoFC, SaldoFV;
-                    cout << "El producto " << ProductoaPagar << " sera enviado a " << CompradorA.getName() << endl;
-                    cout << "A la dirección:" << endl;
-                    CompradorA.getDireccion().print();
-                    SaldoFC = (CompradorA.getDtaBanc().getSaldo() - ValoraPagar);
-                    SaldoFV = (VendedorA.getDtaBanc().getSaldo() + ValoraPagar);
-                    CompradorA.getDtaBanc().setSaldo(SaldoFC);
-                    VendedorA.getDtaBanc().setSaldo(SaldoFV);
-                }
-                
-                else if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() < ValoraPagar)
-                {
-                    cout << "Compra Cancelada, tu saldo es insuficiente...";
-                }
-                else
-                {
-                    cout << "Compra Cancelada...";
-                }
+            for (int cont=0; cont < (nVend); cont++)
+            {
+                cout << "Vendedor " << cont;
+                arrVendedores[cont].PrintProd();
+                cout << "\n";
+            }
+            SeleccionP(ValoraPagar, ProductoaPagar, nVend, arrVendedores);
+            cout << endl;
+            ValorTotal = CalculoPrecio(VendedorA, CompradorA, ValoraPagar);
+            cout << "¿Quieres Proseguir con la compra?" << endl;
+            cout << "Tu Compra:" << ProductoaPagar << "          $" << ValoraPagar <<endl;
+            cout << "Si/No"; cin >> Sel;
+            if (Sel == "Si" || Sel == "si")
+            {
+                cout << "El producto " << ProductoaPagar << "sera enviado a " << CompradorA.getName();
+                cout << "A la dirección:";
+                CompradorA.getDireccion().print();
+            }
+            else
+            {
+                cout << "Compra Cancelada...";
+                cout << "\n";
             }
             break;
         }
