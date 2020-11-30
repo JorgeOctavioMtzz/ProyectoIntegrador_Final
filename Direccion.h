@@ -36,13 +36,13 @@ class Direccion
 // Implementacion de los métodos
 Direccion :: Direccion()
 {
-    pais = "México";
-    estado = "Coahuila";
-    ciudad = "Saltillo";
-    colonia = "Lomas de Lourdes";
-    calle = "Paseo de Los Gavilanes";
-    numCasa = 480;
-    codPostal = 25090;
+    pais = "N/A";
+    estado = "N/A";
+    ciudad = "N/A";
+    colonia = "N/A";
+    calle = "N/A";
+    numCasa = 123;
+    codPostal = 12345;
 }
 
 Direccion :: Direccion(string NPa, string NEs, string NCiu, string NCo, string NCa, int NNC, int NCP)

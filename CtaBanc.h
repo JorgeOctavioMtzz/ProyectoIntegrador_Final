@@ -33,9 +33,9 @@ class CtaBanc{
 CtaBanc::CtaBanc(){
     noTarjeta = "1234123412341234";
     CVV = 123;
-    saldo = 0.00;
-    año = 99;
-    mes = 1;
+    saldo = 1;
+    año = 2020;
+    mes = 12;
 }
 
 CtaBanc::CtaBanc(string nNoTarjeta, int nCVV, double nSaldo, int nMes, int nAño){
