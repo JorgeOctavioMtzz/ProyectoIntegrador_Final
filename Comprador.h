@@ -1,3 +1,4 @@
+// Autores: Tlanetzi Chavez Madero
 #ifndef Comprador_h
 #define Comprador_h
 #include "Direccion.h"

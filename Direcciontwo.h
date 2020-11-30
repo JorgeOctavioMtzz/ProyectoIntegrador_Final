@@ -1,3 +1,4 @@
+// Autores: Jorge Octavio Martínez
 #include<iostream>
 #include <string>
 using namespace std;

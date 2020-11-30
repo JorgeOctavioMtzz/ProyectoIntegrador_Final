@@ -1,9 +1,11 @@
+// Autores: Tlanetzi Chavez Madero
+// Autores: Jorge Octavio Martínez
 #include<iostream>
 #include <string>
 #include "Comprador.h"
 #include "Vendedor.h"
 using namespace std;
-void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
+void IDatosComprador(Comprador ArrPersona[], int &numCompradores) // Funcion que Solicita los datos de los compradores y los asigna a su respectivo Objeto
 {
     numCompradores = 0;
     string pais, estado, ciudad, colonia, calle, noTarjeta, USername;
@@ -48,7 +50,7 @@ void IDatosComprador(Comprador ArrPersona[], int &numCompradores)
     }
 }   
 
-void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
+void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)  // Funcion que Solicita los datos de los Vendedores y los asigna a su respectivo Objeto asi como sus productos
 {
     numVendedores=0;
     string pais, estado, ciudad, colonia, calle, noTarjeta, Prod1, Prod2, Prod3,USername;
@@ -108,7 +110,7 @@ void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
     }
 }   
 
-void Login(Comprador arrComp[], int noComp, Comprador &Compsel, bool &Val)
+void Login(Comprador arrComp[], int noComp, Comprador &Compsel, bool &Val) // Funcion que valida quien esta comprando y regresa a ese comprador
 {   
     Val = false;
     string User, Nombre;
@@ -125,7 +127,7 @@ void Login(Comprador arrComp[], int noComp, Comprador &Compsel, bool &Val)
     }
 }
 
-void SeleccionV(Vendedor arrVend[], int noVend, Vendedor &VendeSel, bool &Val)
+void SeleccionV(Vendedor arrVend[], int noVend, Vendedor &VendeSel, bool &Val) // Funcion que valida a quien se le esta comprando y regresa a ese Vendedor
 {
     Val = false;
     string VendedorS;
@@ -144,7 +146,7 @@ void SeleccionV(Vendedor arrVend[], int noVend, Vendedor &VendeSel, bool &Val)
 }
 
 
-void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[], bool &Val)
+void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[], bool &Val) // Funcion que que se esta comprando y regresa los valores del producto que se esta comprando
 {
     Val = false;
     string ProductoS;
@@ -172,7 +174,7 @@ void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[]
     }
 }
 
-double CalculoPrecio(Vendedor V, Comprador C, double VaP)
+double CalculoPrecio(Vendedor V, Comprador C, double VaP) // Funcion que calcula el precio, tomando en cuenta el envio y el IVA
 {
     double PrecioF;
     if (V.getDireccion().getPais() == C.getDireccion().getPais())

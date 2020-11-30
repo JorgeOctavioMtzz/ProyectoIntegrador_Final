@@ -1,3 +1,4 @@
+// Autores: Tlanetzi Chavez Madero
 #ifndef CtaBanc_h
 #define CtaBanc_h
 #include<iostream>

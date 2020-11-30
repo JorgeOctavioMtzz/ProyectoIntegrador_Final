@@ -1,3 +1,4 @@
+// Autores: Jorge Octavio Martínez
 #ifndef Vendedor_h
 #define Vendedor_h
 #include<iostream>
