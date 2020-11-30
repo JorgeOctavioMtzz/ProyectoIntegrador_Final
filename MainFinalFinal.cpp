@@ -110,46 +110,43 @@ void IDatosVendedor(Vendedor ArrVendedor[], int &numVendedores)
 
 void Login(Comprador arrComp[], int noComp, Comprador &Compsel, bool &Val)
 {   
-    string User;
+    Val = false;
+    string User, Nombre;
     Comprador CompradorDFT;
     cout << "¿Quien Esta Comprando? "; cin >> User;
     for (int cont=0; cont < noComp; cont++)
     {
-        if (arrComp[cont].getName() == User)
+        Nombre = arrComp[cont].getName();
+        if (Nombre == User)
         {
             Compsel = arrComp[cont];
             Val = true;
         }
-        else
-        {
-            cout << "Error 404: Tu nombre no coincide con nuestros Datos, favor de Registrarse...";
-            Compsel = CompradorDFT;
-            Val = false;
-        }
     }
 }
 
-void SeleccionV(Vendedor arrVend[], int noVend, Vendedor VendeSel)
+void SeleccionV(Vendedor arrVend[], int noVend, Vendedor &VendeSel, bool &Val)
 {
+    Val = false;
     string VendedorS;
     Vendedor VendedorDft;
+    string Nombre;
     cout << "Selecciona el Vendor "; cin >> VendedorS;
     for (int cont=0; cont < noVend; cont++)
     {
-        if (arrVend[cont].getName() == VendedorS)
+        Nombre = arrVend[cont].getName();
+        if (Nombre == VendedorS)
         {
             VendeSel =  arrVend[cont];
-        }
-        else
-        {
-            cout << "Error 404: El vendedor seleccionado no existe";
-            VendeSel = VendedorDft;
+            Val = true;
         }
     }
 }
 
-void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[])
+
+void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[], bool &Val)
 {
+    Val = false;
     string ProductoS;
     cout << "Selecciona tu Producto "; cin >> ProductoS;
     for (int cont=0; cont < noVend; cont++)
@@ -158,18 +155,20 @@ void SeleccionP(double &Valor, string &NProducto, int noVend, Vendedor arrVend[]
         {
             NProducto = arrVend[cont].getProducto1();
             Valor = arrVend[cont].getPrecio1();
+            Val = true;
         }
         else if (arrVend[cont].getProducto2() == ProductoS)
         {
             NProducto = arrVend[cont].getProducto2();
             Valor = arrVend[cont].getPrecio2();
+            Val = true;
         }
         else if (arrVend[cont].getProducto3() == ProductoS)
         {
             NProducto = arrVend[cont].getProducto3();
             Valor = arrVend[cont].getPrecio3();
+            Val = true;
         }
-        
     }
 }
 
@@ -244,71 +243,86 @@ int main()
                     arrVendedores[cont].print(); cout << "\n";
                     arrVendedores[cont].getDireccion().print(); cout << "\n";
                     cout << "\n";
-                }
-
-
-                for (int cont=0; cont < nVend; cont++)
-                {
                     arrVendedores[cont].PrintProd(); cout << "\n";
+                    cout << "\n";
                 }
             }
             break;
         case 'e':
+        bool Vali;
             if (nComp == 0 || nVend == 0)
             {
                 cout << "\nError no hay ningun Comprador/Vendedor Registrado...\n";
             }
             else
             {
-                bool Vali;
                 for (int cont=0; cont < nComp; cont++)
                 {
-                    cout << arrCompradores[cont].getName();
+                    cout << "\n" << arrCompradores[cont].getName() << "\n";
                 }
                 cout << endl;
                 Login(arrCompradores, nComp, CompradorA, Vali);
-                if (Vali == true)
+
+                if (Vali == false)
+                {
+                    goto exit;
+                }
+
+                else
                 {
                     for (int cont=0; cont < nVend; cont++)
                     {
-                        cout << arrVendedores[cont].getName();
+                        cout << "\n" << arrVendedores[cont].getName() << "\n";
                     }
                     cout << endl;
-                    SeleccionV(arrVendedores, nVend, VendedorA);
-
-                    for (int cont=0; cont < (nVend); cont++)
+                    SeleccionV(arrVendedores, nVend, VendedorA, Vali);
+                    if (Vali == false)
                     {
-                        cout << "Vendedor " << cont;
-                        arrVendedores[cont].PrintProd();
-                        cout << "\n";
+                        goto exit;
                     }
-                    SeleccionP(ValoraPagar, ProductoaPagar, nVend, arrVendedores);
-                    cout << endl;
-                    ValorTotal = CalculoPrecio(VendedorA, CompradorA, ValoraPagar);
-                    cout << "¿Quieres Proseguir con la compra?" << endl;
-                    cout << "Tu Compra:" << ProductoaPagar << "          $" << ValoraPagar <<endl;
-                    cout << "Si/No"; cin >> Sel;
-                    if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() >= ValoraPagar)
-                    {
-                        double SaldoFC, SaldoFV;
-                        cout << "El producto " << ProductoaPagar << " sera enviado a " << CompradorA.getName() << endl;
-                        cout << "A la dirección:" << endl;
-                        CompradorA.getDireccion().print();
-                        SaldoFC = (CompradorA.getDtaBanc().getSaldo() - ValoraPagar);
-                        SaldoFV = (VendedorA.getDtaBanc().getSaldo() + ValoraPagar);
-                        CompradorA.getDtaBanc().setSaldo(SaldoFC);
-                        VendedorA.getDtaBanc().setSaldo(SaldoFV);
+                    else
+                    {               
+                        VendedorA.PrintProd();
                     }
-                    
-                    else if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() < ValoraPagar)
+                    SeleccionP(ValoraPagar, ProductoaPagar, nVend, arrVendedores, Vali);
+                    if (Vali == false)
                     {
-                        cout << "Compra Cancelada, tu saldo es insuficiente...";
+                        goto exit;
                     }
                     else
                     {
-                        cout << "Compra Cancelada...";
+                        cout << endl;
+                        ValorTotal = CalculoPrecio(VendedorA, CompradorA, ValoraPagar);
+                        cout << "¿Quieres Proseguir con la compra?" << endl;
+                        cout << "Tu Compra:" << ProductoaPagar << "          $" << ValorTotal <<endl;
+                        cout << "Si/No \n" ; cin >> Sel;
+                        if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() >= ValorTotal)
+                        {
+                            double SaldoFC, SaldoFV;
+                            cout << "El producto " << ProductoaPagar << " sera enviado a " << CompradorA.getName() << endl;
+                            cout << "A la dirección:" << endl;
+                            CompradorA.getDireccion().print();
+                            SaldoFC = (CompradorA.getDtaBanc().getSaldo() - ValorTotal);
+                            SaldoFV = (VendedorA.getDtaBanc().getSaldo() + ValorTotal);
+                            CtaBanc Ban1,Banc2;
+                            Ban1 = CompradorA.getDtaBanc();
+                            Banc2 = VendedorA.getDtaBanc();
+                            Ban1.setSaldo(SaldoFC);
+                            Banc2.setSaldo(SaldoFV);
+                        }
+                        
+                        else if (Sel == "Si" && CompradorA.getDtaBanc().getSaldo() < ValoraPagar)
+                        {
+                            cout << "Compra Cancelada, tu saldo es insuficiente...";
+                        }
+                        else
+                        {
+                            cout << "Compra Cancelada...";
+                        }
+                    } exit:
+                        cout << " ";
                     }
-                }
+                    
             }
             break;
         }
